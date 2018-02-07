@@ -2,6 +2,11 @@
 
 RESULT="`wget -qO- --timeout=15 --tries=1 https://noc.dotmanaged.eu/api/list/all/ports_only/csv`"
 
+# cleanup
+/sbin/iptables -F noc-dotmanaged > /dev/null 2>&1
+/sbin/iptables -D INPUT -j noc-dotmanaged > /dev/null 2>&1
+
+# init
 /sbin/iptables -N noc-dotmanaged > /dev/null 2>&1
 /sbin/iptables -A INPUT -j noc-dotmanaged > /dev/null 2>&1
 /sbin/iptables -F noc-dotmanaged > /dev/null 2>&1
